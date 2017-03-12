@@ -36,14 +36,12 @@ public class TetrisGrid extends Activity implements TetrisConstants {
         int sw = getScreenWidth(); // the total screen width by pixel
         int sh = getScreenHeight(); // the total screen height by pixel
         int gridX; // the left x-position of the tetris grid
-        int startX = 0, startY = 0, stopX = sw, stopY = sh;
+        int startX, startY, stopX, stopY;
         int boxW = (sw/2)/Math.min(playMaxRow,playMaxCol);
-        int gridGapHigh = sh - (sh/boxW)*boxW; // the gap
-
-        // paint grid background
-        //paint.setColor(Color.WHITE);
-        //paint.setStyle(Paint.Style.FILL);
-        //canvas.drawRect(stopX, startY, stopX, stopY, paint);
+        int gridHighGap = sh - (sh/boxW) * boxW;
+        int gridWidthGap = sw - (sw/boxW) * boxW;
+        sh = sh - gridHighGap; // new grid high by box width
+        sw = sw - gridWidthGap; // new grid width by box width
 
         // paint tetris grid matrix
         gridX = sw/2;
@@ -55,12 +53,12 @@ public class TetrisGrid extends Activity implements TetrisConstants {
         for(int r=0;r<totalRow;r++) {
             for(int c=0;c<totalCol;c++) {
                 startX = gridX + c * boxW;
-                startY = r * boxW + gridGapHigh;
+                startY = r * boxW;
                 stopX = startX;
                 stopY = sh;
                 canvas.drawLine(startX,startY,stopX,stopY,paint); // x-line
                 startX = gridX;
-                startY = c * boxW + gridGapHigh;
+                startY = c * boxW;
                 stopX = sw;
                 stopY = startY;
                 canvas.drawLine(startX,startY,stopX,stopY,paint); // y-line
