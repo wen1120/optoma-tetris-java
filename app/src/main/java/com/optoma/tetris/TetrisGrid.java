@@ -33,39 +33,37 @@ public class TetrisGrid extends Activity implements TetrisConstants {
 
     public void paint(Canvas canvas, Paint paint) {
 
-        // paint grid background
-        int sw = getScreenWidth();
-        int sh = getScreenHeight();
-        int startX;
-        int startY;
-        int stopX;
-        int stopY;
-        int gridX;
-
-        startX = 0;
-        startY = 0;
-        stopX = sw;
-        stopY = sh;
-
+        int sw = getScreenWidth(); // the total screen width by pixel
+        int sh = getScreenHeight(); // the total screen height by pixel
+        int gridX; // the left x-position of the tetris grid
+        int startX = 0, startY = 0, stopX = sw, stopY = sh;
         int boxW = (sw/2)/Math.min(playMaxRow,playMaxCol);
+        int gridGapHigh = sh - (sh/boxW)*boxW; // the gap
 
-        paint.setColor(Color.WHITE);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(stopX, startY, stopX, stopY, paint);
+        // paint grid background
+        //paint.setColor(Color.WHITE);
+        //paint.setStyle(Paint.Style.FILL);
+        //canvas.drawRect(stopX, startY, stopX, stopY, paint);
 
         // paint tetris grid matrix
         gridX = sw/2;
 
-
-        paint.setColor(Color.GRAY);
+        paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
-        for(int r=0;r<playMaxRow;r++) {
-            for(int c=0;c<playMaxCol;c++) {
+        int totalRow = sw/boxW;
+        int totalCol = sh/boxW;
+        for(int r=0;r<totalRow;r++) {
+            for(int c=0;c<totalCol;c++) {
                 startX = gridX + c * boxW;
-                startY = r * boxW;
+                startY = r * boxW + gridGapHigh;
                 stopX = startX;
                 stopY = sh;
-                canvas.drawLine(startX,startY,stopX,stopY,paint);
+                canvas.drawLine(startX,startY,stopX,stopY,paint); // x-line
+                startX = gridX;
+                startY = c * boxW + gridGapHigh;
+                stopX = sw;
+                stopY = startY;
+                canvas.drawLine(startX,startY,stopX,stopY,paint); // y-line
             }
         }
     }
