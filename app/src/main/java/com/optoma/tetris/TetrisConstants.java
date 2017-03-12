@@ -4,16 +4,17 @@ package com.optoma.tetris;
  * Created by linweiting on 2017/3/9.
  */
 
+import android.content.res.Resources;
 import android.graphics.Color;
 
 public interface TetrisConstants {
 
-    public final int maxRow = 40;
-    public final int maxCol = 40;
-    public final int cellWidth = 80;
-    public final int gridTop = 80;
-    public final int gridLeft = 400;
-    public int[][] gridBoard = new int[maxRow][maxCol];
+    public final int playMaxRow = 26;
+    public final int playMaxCol = 10;
+    public final int scoreMaxRow = 10;
+    public final int scoreMaxCol = 10;
+    public int[][] gridBoard = new int[playMaxRow][playMaxCol];
+    public static final String ACTIVITY_LOG="tetrisLog";
 
     // tetrimino
     public static final int I[][][] = {
@@ -51,4 +52,5 @@ public interface TetrisConstants {
             {{0,0},{1,0},{1,1},{2,1}},
             {{0,1},{0,2},{1,0},{1,1}}
     };
+
 }

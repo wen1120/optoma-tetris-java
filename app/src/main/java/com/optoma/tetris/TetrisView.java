@@ -19,6 +19,7 @@ public class TetrisView extends View implements TetrisConstants {
         super(context);
         myActivityHandle = context;
         grid = new TetrisGrid();
+        mPaint = new Paint();
         init();
     }
 
