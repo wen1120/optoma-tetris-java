@@ -9,5 +9,6 @@ build
 *.apk
 *.iml
 .gradle
-/local.properties
+local.properties
 .externalNativeBuild
+*.iml

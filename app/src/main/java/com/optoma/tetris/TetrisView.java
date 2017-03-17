@@ -31,6 +31,7 @@ public class TetrisView extends View implements TetrisConstants {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         grid.paint(canvas, mPaint);
+        //invalidate();
     }
 
     public void restartGame() {
