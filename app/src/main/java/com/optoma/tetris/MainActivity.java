@@ -9,10 +9,12 @@ import com.optoma.tetris.TetrisView;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.content.pm.ActivityInfo;
 
 public class MainActivity extends Activity implements TetrisConstants {
 
     TetrisView tv;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tv = new TetrisView(this);
@@ -55,5 +57,13 @@ public class MainActivity extends Activity implements TetrisConstants {
         }
         setContentView(R.layout.activity_main);
         setContentView(tv);
+    }
+
+    @Override
+    protected void onResume() {
+        //if (getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+        //    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //}
+        super.onResume();
     }
 }
