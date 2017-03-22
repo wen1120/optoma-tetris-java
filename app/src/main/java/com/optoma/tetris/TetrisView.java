@@ -21,16 +21,23 @@ public class TetrisView extends View implements TetrisConstants {
     private int sw = 0; // screen width
     private int sh = 0; // screen height
     private int gridLeftX = 0; // the left x-position of the tetris grid
-    private int scoreX = boxW*2;
-    private int scoreY = boxW*2;
-    private int levelX = scoreX;
-    private int levelY = scoreY + boxW;
+    private int scoreX; // x position of score
+    private int scoreY; // y position of score
+    private int levelX; // x position of level
+    private int levelY; // y position of level
+    private int currentLevel = 1; // current level, default is 1
+    private int currentScore = 0; // current score, default is 0
 
     public TetrisView(Activity context) {
         super(context);
         myActivityHandle = context;
         mPaint = new Paint();
         boxW = (getScreenWidth()/2)/Math.min(gridMaxRow,gridMaxCol);
+        scoreX = boxW*2;
+        scoreY = boxW*2;
+        levelX = scoreX;
+        levelY = scoreY + boxW;
+
         sw = (getScreenWidth()/boxW)*boxW; // the total screen width by pixel through box
         sh = (getScreenHeight()/boxW)*boxW; // the total screen height by pixel through box
         init();
@@ -75,8 +82,8 @@ public class TetrisView extends View implements TetrisConstants {
         paint.setTextSize(40);
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawText("Score: ", scoreX, scoreY, paint);
-        canvas.drawText("Level: ", levelX, levelY, paint);
+        canvas.drawText("Score: "+currentScore, scoreX, scoreY, paint);
+        canvas.drawText("Level: "+currentLevel, levelX, levelY, paint);
     }
 
     /*
