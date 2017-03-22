@@ -17,9 +17,14 @@ public class TetrisView extends View implements TetrisConstants {
 
     private Activity myActivityHandle;
     private Paint mPaint;
-    private int boxW; // box size (width=height)
-    private int sw; // screen width
-    private int sh; // screen height
+    private int boxW = 0; // box size (width=height)
+    private int sw = 0; // screen width
+    private int sh = 0; // screen height
+    private int gridLeftX = 0; // the left x-position of the tetris grid
+    private int scoreX = boxW*2;
+    private int scoreY = boxW*2;
+    private int levelX = scoreX;
+    private int levelY = scoreY + boxW;
 
     public TetrisView(Activity context) {
         super(context);
@@ -29,7 +34,6 @@ public class TetrisView extends View implements TetrisConstants {
         sw = (getScreenWidth()/boxW)*boxW; // the total screen width by pixel through box
         sh = (getScreenHeight()/boxW)*boxW; // the total screen height by pixel through box
         init();
-        newBox();
     }
 
     private void init() {
@@ -50,17 +54,16 @@ public class TetrisView extends View implements TetrisConstants {
     }
 
     public void paint(Canvas canvas, Paint paint) {
-        int gridX; // the left x-position of the tetris grid
-        int startX, startY, stopX, stopY, gridHighGap, gridWidthGap;
+        int startX, startY, stopX, stopY;
 
         // paint tetris grid matrix on the right size (1/2)
-        gridX = sw/2;
+        gridLeftX = sw/2;
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
 
         for(int r=0;r<gridMaxRow;r++) {
             for(int c=0;c<gridMaxCol;c++) {
-                startX = gridX + c * boxW;
+                startX = gridLeftX + c * boxW;
                 startY = r * boxW;
                 stopX = startX + boxW;
                 stopY = startY + boxW;
@@ -70,38 +73,32 @@ public class TetrisView extends View implements TetrisConstants {
 
         // paint tetris scope and level
         paint.setTextSize(40);
-        int scoreX = boxW*2;
-        int scoreY = boxW*2;
-        int levelX = scoreX;
-        int levelY = scoreY + boxW;
-        canvas.drawText("Score: 0", scoreX, scoreY, paint);
-        canvas.drawText("Level: 0", levelX, levelY, paint);
+        paint.setColor(Color.WHITE);
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawText("Score: ", scoreX, scoreY, paint);
+        canvas.drawText("Level: ", levelX, levelY, paint);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        paint(canvas, mPaint);
-    }
-
-    /*  generate a new tetrmino box by random
-        draw a tetrimino on the tetris grid
-        check if any line is filled, if yes, erase the line
-        if a line is erased, move boxs above this line down above
-        calculate all values in the gridBoard[]
-        do above 3 actions continuously until done
-        check if movable, if yes, move down automatically
-        repeat above action to check if any line is filled and do the same action
-        change the gridBoard value according to the tetrmino current position
-        check if all columns with value, if yes, game over
-     */
-    public void newBox() {
+    /*
+    generate a new tetrmino box by random
+    draw a tetrimino on the tetris grid
+    check if any line is filled, if yes, erase the line
+    if a line is erased, move boxs above this line down above
+    calculate all values in the gridBoard[]
+    do above 3 actions continuously until done
+    check if movable, if yes, move down automatically
+    repeat above action to check if any line is filled and do the same action
+    change the gridBoard value according to the tetrmino current position
+    check if all columns with value, if yes, game over
+ */
+    public void paintBox(Canvas canvas, Paint paint) {
         Random r = new Random();
-        int boxType = r.nextInt(7); // there are total 7 kinds of tetrminos
+        int boxType = r.nextInt(7); // there are total 7 kinds of tetrimino
         int boxIndex; // get the random index of current tetrimino
         int tetrimino[][] = {};
+        int startX, startY, stopX, stopY;
 
-        // generate a new tetrmino box by random
+        // generate a new tetrimino box by random
         switch (boxType) {
             case 0:
                 boxIndex = r.nextInt(tetriminoI.length);
@@ -133,6 +130,19 @@ public class TetrisView extends View implements TetrisConstants {
                 break;
         }
 
+        for (int i=0;i< tetrimino.length;i++) {
+            startX = gridLeftX + boxW * (tetrimino[i][0]+1); // x
+            startY = boxW * (tetrimino[i][1] + 1); //y
+            stopX = startX + boxW;
+            stopY = startY + startY;
+            canvas.drawRect(startX, startY, stopX, stopY, paint);
+        }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        paint(canvas, mPaint);
     }
 
     public void restartGame() {
