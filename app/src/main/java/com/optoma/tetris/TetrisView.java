@@ -60,13 +60,15 @@ public class TetrisView extends View implements TetrisConstants {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
+    /*
+     paint tetris grid matrix on the right size (1/2)
+     */
     public void paint(Canvas canvas, Paint paint) {
         int startX, startY, stopX, stopY;
 
-        // paint tetris grid matrix on the right size (1/2)
         gridLeftX = sw/2;
-        paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.WHITE);
 
         for(int r=0;r<gridMaxRow;r++) {
             for(int c=0;c<gridMaxCol;c++) {
@@ -80,8 +82,8 @@ public class TetrisView extends View implements TetrisConstants {
 
         // paint tetris scope and level
         paint.setTextSize(40);
-        paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.WHITE);
         canvas.drawText("Score: "+currentScore, scoreX, scoreY, paint);
         canvas.drawText("Level: "+currentLevel, levelX, levelY, paint);
     }
@@ -97,7 +99,7 @@ public class TetrisView extends View implements TetrisConstants {
     repeat above action to check if any line is filled and do the same action
     change the gridBoard value according to the tetrmino current position
     check if all columns with value, if yes, game over
- */
+    */
     public void paintBox(Canvas canvas, Paint paint) {
         Random r = new Random();
         int boxType = r.nextInt(7); // there are total 7 kinds of tetrimino
@@ -137,12 +139,15 @@ public class TetrisView extends View implements TetrisConstants {
                 break;
         }
 
+
+        paint.setColor(Color.CYAN);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
         for (int i=0;i< tetrimino.length;i++) {
-            startX = gridLeftX + boxW * (tetrimino[i][0]+1); // x
+            startX = gridLeftX+boxW*(gridMaxCol/3) + boxW * (tetrimino[i][0]+1); // x
             startY = boxW * (tetrimino[i][1] + 1); //y
             stopX = startX + boxW;
             stopY = startY + startY;
-            canvas.drawRect(startX, startY, stopX, stopY, paint);
+            canvas.drawRect(startX+1, startY+1, stopX-1, stopY-1, mPaint);
         }
     }
 
@@ -150,6 +155,7 @@ public class TetrisView extends View implements TetrisConstants {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint(canvas, mPaint);
+        paintBox(canvas, mPaint);
     }
 
     public void restartGame() {
