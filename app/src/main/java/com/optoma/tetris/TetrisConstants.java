@@ -14,6 +14,7 @@ public interface TetrisConstants {
     public int gridMaxCol = 14;
     public int[][] gridBoard = new int[gridMaxRow][gridMaxCol];
     public String ACTIVITY_LOG="tetrisLog";
+    public int boxStarCol = 6; // the first column that the tetrimino display
 
     // tetrimino
     public int tetriminoI[][][] = {

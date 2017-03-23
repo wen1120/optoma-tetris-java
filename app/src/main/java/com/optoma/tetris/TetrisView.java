@@ -38,12 +38,15 @@ public class TetrisView extends View implements TetrisConstants {
         levelX = scoreX;
         levelY = scoreY + boxW;
 
+        Log.d(ACTIVITY_LOG,"TetrisView: constructor");
+
         sw = (getScreenWidth()/boxW)*boxW; // the total screen width by pixel through box
         sh = (getScreenHeight()/boxW)*boxW; // the total screen height by pixel through box
         init();
     }
 
     private void init() {
+        Log.d(ACTIVITY_LOG,"TetrisView: init()");
 
         for (int r=0;r<gridMaxRow; r++) {
             for (int c=0; c<gridMaxCol; c++) {
@@ -65,6 +68,7 @@ public class TetrisView extends View implements TetrisConstants {
      */
     public void paint(Canvas canvas, Paint paint) {
         int startX, startY, stopX, stopY;
+        Log.d(ACTIVITY_LOG,"TetrisView: paint grid");
 
         gridLeftX = sw/2;
         paint.setStyle(Paint.Style.STROKE);
@@ -103,9 +107,11 @@ public class TetrisView extends View implements TetrisConstants {
     public void paintBox(Canvas canvas, Paint paint) {
         Random r = new Random();
         int boxType = r.nextInt(7); // there are total 7 kinds of tetrimino
-        int boxIndex; // get the random index of current tetrimino
+        int boxIndex = 0; // get the random index of current tetrimino
         int tetrimino[][] = {};
         int startX, startY, stopX, stopY;
+
+        Log.d(ACTIVITY_LOG, "TetrisView: paint tetrimino, boxType="+boxType+",boxIndex="+boxIndex);
 
         // generate a new tetrimino box by random
         switch (boxType) {
@@ -139,16 +145,25 @@ public class TetrisView extends View implements TetrisConstants {
                 break;
         }
 
-
-        paint.setColor(Color.CYAN);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        for (int i=0;i< tetrimino.length;i++) {
-            startX = gridLeftX+boxW*(gridMaxCol/3) + boxW * (tetrimino[i][0]+1); // x
-            startY = boxW * (tetrimino[i][1] + 1); //y
-            stopX = startX + boxW;
-            stopY = startY + startY;
-            canvas.drawRect(startX+1, startY+1, stopX-1, stopY-1, mPaint);
+        if ( isMovable() && isFilled() ) {
+            paint.setColor(Color.CYAN);
+            paint.setStyle(Paint.Style.FILL_AND_STROKE);
+            for (int i = 0; i < tetrimino.length; i++) {
+                startX = gridLeftX + boxW * boxStarCol + boxW * (tetrimino[i][0] + 1); // x
+                startY = boxW * (tetrimino[i][1] + 1); //y
+                stopX = startX + boxW;
+                stopY = startY + startY;
+                canvas.drawRect(startX + 1, startY + 1, stopX - 1, stopY - 1, mPaint);
+            }
         }
+    }
+
+    private boolean isMovable() {
+        return true;
+
+    }
+    private boolean isFilled() {
+        return true;
     }
 
     @Override
