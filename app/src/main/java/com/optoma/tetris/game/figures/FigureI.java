@@ -1,0 +1,70 @@
+package com.optoma.tetris.game.figures;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+
+
+public class FigureI extends Figure {
+
+    /**
+     * 0 -  1 0 0 0
+     *      1 0 0 0
+     *      1 0 0 0
+     *      1 0 0 0
+     *
+     * 1 -  1 1 1 1
+     *      0 0 0 0
+     *      0 0 0 0
+     *      0 0 0 0
+     */
+
+    @Override
+    public int getOrientation() {
+        return 2;
+    }
+
+    @Override
+    public void setOrientation(int position) {
+        super.setOrientation(position);
+        switch (mCurrentOrientation) {
+            case 0:
+                for (int i = 0; i < HEIGHT; i++) {
+                    mFigure[i][0] = 1;
+                }
+                break;
+            case 1:
+                for (int i = 0; i < WIDTH; i++) {
+                    mFigure[0][i] = 1;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public Bitmap draw(int marginHorizontal, int marginVertical) {
+        Bitmap result;
+        switch (mCurrentOrientation) {
+            case 0: {
+                final int bmpWidth = 1 * marginHorizontal;
+                final int bmpHeight = 4 * marginVertical;
+                result = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(result);
+                canvas.drawRect(new Rect(0, 0, bmpWidth, bmpHeight), mPaint);
+            } break;
+            case 1: {
+                final int bmpWidth = 4 * marginHorizontal;
+                final int bmpHeight = 1 * marginVertical;
+                result = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(result);
+                canvas.drawRect(new Rect(0, 0, bmpWidth, bmpHeight), mPaint);
+            } break;
+            default:
+                return null;
+        }
+        return result;
+    }
+
+}

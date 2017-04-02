@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">tetris</string>
+    <string name="app_name">Optoma Tetris</string>
+
+    <!--Game menu title-->
+    <string name="game_menu_new_game">New Game</string>
+    <string name="game_menu_exit">Exit</string>
+
+    <!--Game activity elements-->
+    <string name="game_activity_next_tetrimino">Next Tetrimino</string>
+    <string name="game_activity_scores">Scores</string>
+    <string name="game_activity_level">Level</string>
+    <string name="game_activity_exit">Exit</string>
+    <string name="game_activity_resume">Resume</string>
+    <string name="game_message_gameOver">Game Over!</string>
+
 </resources>

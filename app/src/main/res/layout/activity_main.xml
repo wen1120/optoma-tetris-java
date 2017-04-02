@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.optoma.tetris.MainActivity">
-</android.support.constraint.ConstraintLayout>
+    android:padding="@dimen/padding_default"
+    android:orientation="vertical"
+    tools:context="com.optoma.tetris.MainActivity"
+    android:background="@drawable/back">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="@dimen/padding_default">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textSize="40dp"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/ActivityMain_NewGameBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/game_menu_new_game" />
+
+        <Button
+            android:id="@+id/ActivityMain_ExitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/game_menu_exit"/>
+    </LinearLayout>
+
+</LinearLayout>
