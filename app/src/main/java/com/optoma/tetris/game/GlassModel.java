@@ -14,8 +14,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GlassModel
-        implements GameEvents {
+public class GlassModel implements GameEvents {
 
     private static final int LINE_PRICE = 100; // scores for one line collection
     private static final int LEVEL_UP_FACTOR = 1000;
@@ -43,6 +42,16 @@ public class GlassModel
     private int mLevel = 0;
 
     private PlayField mPlayField;
+
+
+    public class MessageTypes {
+        public static final int SCORES = 0;
+        public static final int LEVEL = 1;
+        public static final int NEXT_FIGURE = 2;
+        public static final int REFRESH = 3;
+        public static final int CLEAR_LINE = 4;
+        public static final int GAME_OVER = 5;
+    }
 
     public GlassModel(GlassController glassController) {
         mPlayField = new PlayField();

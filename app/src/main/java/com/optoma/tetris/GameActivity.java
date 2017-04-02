@@ -49,9 +49,6 @@ public class GameActivity extends Activity {
     private MediaPlayer mMusicPlayer;
     private MediaPlayer mSoundPlayer;
 
-    private boolean mMusic = true;
-    private boolean mSound = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,9 +194,6 @@ public class GameActivity extends Activity {
 
     private void playMusic() {
         releaseMediaPlayer(mMusicPlayer);
-        if (!mMusic) {
-            return;
-        }
         mMusicPlayer = MediaPlayer.create(GameActivity.this, mMusicFiles[mMusicIndex]);
         mMusicPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mMusicPlayer.start();
@@ -218,9 +212,6 @@ public class GameActivity extends Activity {
 
     private void playSound(int type) {
         releaseMediaPlayer(mSoundPlayer);
-        if (!mSound) {
-            return;
-        }
         mSoundPlayer = MediaPlayer.create(GameActivity.this, sounds[type]);
         mSoundPlayer.start();
     }
