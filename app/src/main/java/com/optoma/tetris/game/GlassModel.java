@@ -20,7 +20,7 @@ public class GlassModel implements GameEvents {
     private static final int LEVEL_UP_FACTOR = 1000;
 
     private Timer mTimer;
-    private int mTimerPeriod = 300;
+    private int mTimerPeriod = 400;
     private GlassController mGlassController;
 
     private Figure.FigureTypes mNextFigureType;

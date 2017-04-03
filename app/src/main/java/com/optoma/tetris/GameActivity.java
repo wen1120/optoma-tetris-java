@@ -26,7 +26,6 @@ public class GameActivity extends Activity {
     /** UI elements */
     private TextView mScoreTxt;
     private TextView mLevelTxt;
-    private ImageView NextTetriminoImg;
     private Button mExitBtn;
 
     private FrameLayout mMessageBoxLyt;
@@ -57,7 +56,6 @@ public class GameActivity extends Activity {
 
         mScoreTxt = (TextView) findViewById(R.id.ActivityGame_ScoreTxt);
         mLevelTxt = (TextView) findViewById(R.id.ActivityGame_LevelTxt);
-        NextTetriminoImg = (ImageView) findViewById(R.id.ActivityGame_NextTetriminoImg);
         mExitBtn = (Button) findViewById(R.id.ActivityGame_OnExitBtn);
         mExitBtn.setOnClickListener(onExitBtnClick);
 
@@ -168,7 +166,6 @@ public class GameActivity extends Activity {
 
         @Override
         public void onChangeNextFigure(Figure figure) {
-            NextTetriminoImg.setImageBitmap(figure.draw(NextTetriminoImg.getWidth(), NextTetriminoImg.getHeight()));
             mGlassView.setCurrentFigure(mGlassModel.getCurrentFigure());
         }
 

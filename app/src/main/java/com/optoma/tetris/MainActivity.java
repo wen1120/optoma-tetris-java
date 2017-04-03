@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+/*
+  how to use import opencv sdk to android studio, please visit
+  http://stackoverflow.com/questions/17767557/how-to-use-opencv-in-android-studio-using-gradle-build-tool/27356635#27356635
 
+ */
 public class MainActivity extends Activity {
 
     @Override
